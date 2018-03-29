@@ -1,29 +1,36 @@
 #include <SoftwareSerial.h>
 
-char junk;
-String inputString="";
-SoftwareSerial ble(2,3);
+String inputString ="";
+//SoftwareSerial ble(14,15);
 void setup()                    // run once, when the sketch starts
 {
  Serial.begin(9600);            // set the baud rate to 9600, same should be of your Serial Monitor
  pinMode(9, OUTPUT);
  pinMode(10,OUTPUT);
  pinMode(11, OUTPUT);
- ble.begin(9600);
+// ble.begin(9600);
 }
 
 void loop()
 {
-  if(ble.available()){
-  while(ble.available())
+  if(Serial.available()){
+  while(Serial.available())
     {
       Serial.println("serial is still available");
-      char letter = (char)ble.read(); //read the input
+      char letter = (char)Serial.read(); //read the input
       delay(50);
       inputString += letter;
     }
     Serial.println(inputString);
-    if(inputString[0] == 'a'){         //in case of 'a' turn the LED on
+    if(inputString[0] == 'a'){
+      turnOnLed();
+    }
+  }
+}
+
+void turnOnLed(){
+     
+     if(inputString[0] == 'a'){         //in case of 'a' turn the LED on
       digitalWrite(9, HIGH); 
       delay(500);
       digitalWrite(9,LOW); 
@@ -37,5 +44,10 @@ void loop()
       digitalWrite(11,LOW);
     }
     inputString = "";
-  }
 }
+
+void activateServo(){
+  
+}
+
+
