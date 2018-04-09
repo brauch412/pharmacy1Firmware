@@ -66,6 +66,7 @@ void loop()
   }
 }
 
+
 void turnOnLed(){
 
      //will need the second char to id which LED to turn on
@@ -87,13 +88,20 @@ void turnOnLed(){
 
 void activateServo(){
   Serial.println("inside servo function");
+
+  //get stuff after the delim
   String inputCopy = inputString;
   String param = getValue(inputCopy,'-', 1);
+  /////
+
+  //this converts from string to int, so we can use that number value to do stuff
   char paramCh[256];
   param.toCharArray(paramCh, sizeof(paramCh));
-
   //converting the servo param to int
   int paramNum = atoi(paramCh);
+  ////
+
+  
   Serial.println(paramNum);
   inputString = "";
 }
