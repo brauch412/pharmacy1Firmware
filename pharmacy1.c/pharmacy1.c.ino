@@ -28,7 +28,7 @@ int irDigitalPin = 8;
 //////// Bluetooth Varibles //////
 String inputString ="";
 char deLim = '-';
-//SoftwareSerial ble(14,15);
+SoftwareSerial ble(2,3);
 
 void setup()                    
 {
@@ -36,7 +36,7 @@ void setup()
 // pinMode(led1Pin, OUTPUT);
 // pinMode(led2Pin,OUTPUT);
 // pinMode(led3Pin, OUTPUT);
-// ble.begin(9600);
+ ble.begin(9600);
 
   servoUnit.attach(9);
   pinMode(irDigitalPin, OUTPUT);
@@ -45,11 +45,11 @@ void setup()
 
 void loop()
 {
-  if(Serial.available()){
-  while(Serial.available())
+  if(ble.available()){
+  while(ble.available())
     {
       Serial.println("serial is still available");
-      char letter = (char)Serial.read(); //read the input
+      char letter = (char)ble.read(); //read the input
       delay(50);
       inputString += letter;
     }
@@ -88,21 +88,13 @@ void turnOnLed(){
 void activateServo(){
   Serial.println("inside servo function");
   String inputCopy = inputString;
-  
   String param = getValue(inputCopy,'-', 1);
   char paramCh[256];
   param.toCharArray(paramCh, sizeof(paramCh));
-//strcpy(paramCh,param);
+
+  //converting the servo param to int
   int paramNum = atoi(paramCh);
   Serial.println(paramNum);
-  
-//  servoAngle = (int)inputString[1];
-//  Serial.println(servoAngle);
-//  for(servoAngle = 0; servoAngle < 180; servoAngle++){
-//    servoUnit.write(servoAngle);
-//    delay(5);
-//  }
-
   inputString = "";
 }
 
