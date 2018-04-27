@@ -76,25 +76,24 @@ void loop() {
      dispensed = 1; 
      //Serial.println("dispensed value:"); 
      Serial.println("Dispensed pill");
+     delay(10);
      servoTurn(); 
+     delay(10);
      changeLightBack(); 
+     delay(10); 
+     ble.write("pill taken"); 
+     Serial.println("Pill taken"); 
+     dispensed = 0; 
+     lightstatus = 0; 
+      dispensed = 0; 
+      delay(10); 
+     setColor(255, 0, 0);  // red
   }
  
-  int val = analogRead(A0);
+  //int val = analogRead(A0);
+  //Serial.println(val); 
 
-  if (dispensed == 1 && val < 1000 && lastval < 1000) {
-    Serial.println("Patient removed pill"); 
-    //Serial.println(val);
-    //Serial.println(lastval);  
-    ble.write("pill taken"); 
-    dispensed = 0; 
-    lightstatus = 0; 
-    dispensed = 0; 
-    setColor(255, 0, 0);  // red
-  }
-
-  lastval = val;
-    
+ 
 }
 
 
@@ -113,7 +112,7 @@ void setColor(int red, int green, int blue)
 void changeLight() 
 {
     if (lightstatus == 0) {
-      setColor(0, 255, 0);  // green
+      setColor(0, 0, 255);  // green
       //Serial.println("light changed green"); 
       lightstatus = 1;
     }
